@@ -1,5 +1,5 @@
 # python-avanza-scraper
-Scrape stock info
+Scrape stock info from avanza.se
 
 
 requires BeautifulSoup and Requests
