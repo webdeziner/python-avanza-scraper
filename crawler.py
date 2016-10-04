@@ -7,16 +7,22 @@ from datetime import datetime
 
 __author__ = 'Webdeziner.se'
 
-dataFolder = 'data/';
+dataFolder = 'data/'
+urlsFile = 'stock_urls.csv'
+stock_urls = []
+"""stock_urls = [
+    'https://www.avanza.se/aktier/om-aktien.html/5247/investor-b',
+    'https://www.avanza.se/aktier/om-aktien.html/5369/kinnevik-b'
+]"""
 
 if not os.path.exists(dataFolder):
     os.makedirs(dataFolder)
 
 
-stock_urls = [
-    'https://www.avanza.se/aktier/om-aktien.html/5247/investor-b',
-    'https://www.avanza.se/aktier/om-aktien.html/5369/kinnevik-b'
-]
+with open(urlsFile, "rb") as csv_object:
+	reader = csv.reader(csv_object, delimiter=',')
+	for row in reader:
+		stock_urls.extend(row)
 
 
 def make_soup(url):
@@ -25,7 +31,7 @@ def make_soup(url):
 
 
 def crawl():
-    """" Create new file """
+    """ Create new file """
     fileName = 'export-' + datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv'
     openFile = open(dataFolder + fileName, 'w+')
     csvFile = csv.writer(openFile, delimiter=',', quoting=csv.QUOTE_ALL)
